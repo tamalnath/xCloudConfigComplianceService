@@ -7,35 +7,41 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PieChartComponent implements OnInit {
 
-  @Input('items') items: ViewItem[] = [];
+  @Input('data') data: string;
+  pies: ViewItem[] = [];
 
   constructor() {
-    this.items.push({name: "ABCDEFG", value: 7, path: null, color: null, ratio: null });
-    this.items.push({name: "HIJKLM", value: 6, path: null, color: null, ratio: null });
-    this.items.push({name: "NOPQR", value: 5, path: null, color: null, ratio: null });
-    this.items.push({name: "STUV", value: 4, path: null, color: null, ratio: null });
-    this.items.push({name: "WXY", value: 3, path: null, color: null, ratio: null });
-    this.items.push({name: "Z", value: 1, path: null, color: null, ratio: null });
   }
 
   ngOnInit() {
+    let json = JSON.parse(this.data);
+    if (json instanceof Array) {
+      for (let item of json) {
+        this.pies.push(item);
+      }
+    } else {
+      for (let item in json) {
+        this.pies.push({name: item, value: json[item], path: null, color: null});
+      }
+    }
+
     let total = 0;
     let startX = 1;
     let startY = 0;
-    for (let item of this.items) {
-      if (!item.color) {
-        item.color = '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16);
+    for (let pie of this.pies) {
+      if (!pie.color) {
+        pie.color = '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16);
       }
-      total += item.value;
+      total += pie.value;
     }
     let radian = 0;
-    for (let item of this.items) {
-      let ratio = item.value / total;
+    for (let pie of this.pies) {
+      let ratio = pie.value / total;
       let largeArcFlag = ratio > 0.5 ? 1 : 0;
       radian += ratio * 2 * Math.PI;
       let endX = Math.cos(radian);
       let endY = Math.sin(radian);
-      item.path = "M 0 0 L " + startX + " " + startY + " A 1 1 0 " + largeArcFlag + " 1 " + endX + " " + endY + " Z";
+      pie.path = "M 0 0 L " + startX + " " + startY + " A 1 1 0 " + largeArcFlag + " 1 " + endX + " " + endY + " Z";
       startX = endX;
       startY = endY;
     }

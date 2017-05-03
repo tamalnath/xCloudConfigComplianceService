@@ -3,6 +3,4 @@ class ViewItem {
   value: number;
   path: string;
   color: string;
-  ratio: string;
-
 }
