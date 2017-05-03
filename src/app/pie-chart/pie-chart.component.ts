@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'pie-chart',
@@ -7,18 +7,38 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PieChartComponent implements OnInit {
 
-  data: Pie[] = [];
+  @Input('items') items: ViewItem[] = [];
 
   constructor() {
+    this.items.push({name: "ABCDEFG", value: 7, path: null, color: null, ratio: null });
+    this.items.push({name: "HIJKLM", value: 6, path: null, color: null, ratio: null });
+    this.items.push({name: "NOPQR", value: 5, path: null, color: null, ratio: null });
+    this.items.push({name: "STUV", value: 4, path: null, color: null, ratio: null });
+    this.items.push({name: "WXY", value: 3, path: null, color: null, ratio: null });
+    this.items.push({name: "Z", value: 1, path: null, color: null, ratio: null });
   }
 
   ngOnInit() {
-    this.data.push({name: "In Compliance", path: "M 0 0 L 0 -1 A 1 1 0 1 1 -1 0 Z", color: "green"});
+    let total = 0;
+    let startX = 1;
+    let startY = 0;
+    for (let item of this.items) {
+      if (!item.color) {
+        item.color = '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16);
+      }
+      total += item.value;
+    }
+    let radian = 0;
+    for (let item of this.items) {
+      let ratio = item.value / total;
+      let largeArcFlag = ratio > 0.5 ? 1 : 0;
+      radian += ratio * 2 * Math.PI;
+      let endX = Math.cos(radian);
+      let endY = Math.sin(radian);
+      item.path = "M 0 0 L " + startX + " " + startY + " A 1 1 0 " + largeArcFlag + " 1 " + endX + " " + endY + " Z";
+      startX = endX;
+      startY = endY;
+    }
   }
 
-}
-interface Pie {
-  name: string;
-  path: string;
-  color: string;
 }
