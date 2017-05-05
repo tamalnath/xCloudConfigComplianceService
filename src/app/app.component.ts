@@ -13,6 +13,7 @@ export class AppComponent {
   constructor (private http: Http) {}
 
   save() {
-    this.http.post("http://localhost:8000/bootstrap/aws/endpoints", this.vm);
+    this.http.post("http://10.112.72.106:8000/bootstrap/vmware/endpoints", this.vm)
+    .subscribe((res:Response) => console.log(res));
   }
 }
