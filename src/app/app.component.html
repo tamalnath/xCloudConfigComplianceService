@@ -3,4 +3,40 @@
   <span class="filler"></span>
   <i class="material-icons">face</i>
 </md-toolbar>
-<pie-chart data='{"ABC": 10, "DEF": 20}'></pie-chart>
+<md-tab-group>
+  <md-tab label="Public Cloud">
+    <h3>Public Cloud</h3>
+    <form class="public-cloud-form">
+      <md-input-container class="full-width">
+        <input mdInput placeholder="Instance Name" name="instanceName" [(ngModel)]="vm.instanceName" required>
+      </md-input-container>
+      <md-input-container class="full-width">
+        <input mdInput placeholder="VM Instance ID" name="vmInstanceID" [(ngModel)]="vm.vmInstanceID" required>
+      </md-input-container>
+      <md-input-container class="full-width">
+        <input mdInput placeholder="Username" name="username" [(ngModel)]="vm.username" required>
+      </md-input-container>
+      <md-input-container class="full-width">
+        <textarea mdInput placeholder="Private Key" rows="5" name="privateKey" [(ngModel)]="vm.privateKey" required></textarea>
+      </md-input-container>
+      <button md-raised-button (click)="save()">Save</button>
+      <button md-raised-button (click)="run()">Run OpenSCAP</button>
+    </form>
+  </md-tab>
+  <md-tab label="Private Cloud">
+    <h3>Private Cloud</h3>
+    <form class="public-cloud-form">
+      <md-input-container class="full-width">
+        <input mdInput placeholder="Instance Name" name="instanceName" [(ngModel)]="vm.instanceName" required>
+      </md-input-container>
+      <md-input-container class="full-width">
+        <input mdInput placeholder="Username" name="username" [(ngModel)]="vm.username" required>
+      </md-input-container>
+      <md-input-container class="full-width">
+        <input type="password" mdInput placeholder="Password" name="password" [(ngModel)]="vm.password" required>
+      </md-input-container>
+      <button md-raised-button (click)="save()">Save</button>
+      <button md-raised-button (click)="run()">Run OpenSCAP</button>
+    </form>
+  </md-tab>
+</md-tab-group>

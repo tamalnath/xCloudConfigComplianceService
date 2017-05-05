@@ -3,15 +3,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { MdToolbarModule } from '@angular/material';
+import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { PieChartComponent } from './pie-chart/pie-chart.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    PieChartComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -19,7 +17,7 @@ import { PieChartComponent } from './pie-chart/pie-chart.component';
     FormsModule,
     HttpModule,
 
-    MdToolbarModule
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
