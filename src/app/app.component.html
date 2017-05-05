@@ -1,14 +1,23 @@
 <md-toolbar color="primary">
+  <img src="/assets/vmware-logo.png" style="width: 230px; height: 100px;" />
   <span>{{title}}</span>
   <span class="filler"></span>
   <i class="material-icons">face</i>
 </md-toolbar>
 <md-tab-group>
   <md-tab label="Public Cloud">
-    <h3>Public Cloud</h3>
     <form class="public-cloud-form">
+      <br />
+      <md-button-toggle-group #group="mdButtonToggleGroup">
+        <md-button-toggle value="amazon">Amazon</md-button-toggle>
+        <md-button-toggle value="azure">Azure</md-button-toggle>
+        <md-button-toggle value="google">Google Cloud</md-button-toggle>
+      </md-button-toggle-group>
+      <br />
+      <br />
+      <p>Configure Endpoint</p>
       <md-input-container class="full-width">
-        <input mdInput placeholder="Private Key Path" name="privateKeyPath" [(ngModel)]="vm.privateKeyPath" required>
+        <input mdInput placeholder="Access Key" name="accessKey" [(ngModel)]="vm.accessKey" required>
       </md-input-container>
       <md-input-container class="full-width">
         <input mdInput placeholder="Instance Name" name="instanceName" [(ngModel)]="vm.instanceName" required>
@@ -19,13 +28,19 @@
       <md-input-container class="full-width">
         <input mdInput placeholder="Username" name="userName" [(ngModel)]="vm.userName" required>
       </md-input-container>
-      <button md-raised-button (click)="save()">Save</button>
-      <button md-raised-button (click)="run()">Run OpenSCAP</button>
+      <button md-raised-button (click)="save()" color="primary">Save</button>
+      <button md-raised-button (click)="bootstrap()" color="primary">Bootstrap Endpoints</button>
     </form>
   </md-tab>
   <md-tab label="Private Cloud">
-    <h3>Private Cloud</h3>
     <form class="public-cloud-form">
+      <br />
+      <md-button-toggle-group #group="mdButtonToggleGroup">
+        <md-button-toggle value="vmware">VMware</md-button-toggle>
+      </md-button-toggle-group>
+      <br />
+      <br />
+      <p>Configure Endpoint</p>
       <md-input-container class="full-width">
         <input mdInput placeholder="Instance Name" name="instanceName" [(ngModel)]="vm.instanceName" required>
       </md-input-container>
@@ -38,8 +53,8 @@
       <md-input-container class="full-width">
         <input type="password" mdInput placeholder="Password" name="password" [(ngModel)]="vm.password" required>
       </md-input-container>
-      <button md-raised-button (click)="save()">Save</button>
-      <button md-raised-button (click)="run()">Run OpenSCAP</button>
+      <button md-raised-button (click)="save()" color="primary">Save</button>
+      <button md-raised-button (click)="bootstrap()" color="primary">Bootstrap Endpoints</button>
     </form>
   </md-tab>
 </md-tab-group>
